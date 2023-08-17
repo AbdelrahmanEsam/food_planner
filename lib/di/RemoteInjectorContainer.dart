@@ -1,4 +1,6 @@
 import 'package:food_planner/data/remote/RemoteClient/RemoteClient.dart';
+import 'package:food_planner/data/remote/crashlytics/Crashlytics.dart';
+import 'package:food_planner/data/remote/crashlytics/CrashlyticsImpl.dart';
 import 'package:food_planner/data/remote/networkService/NetworkService.dart';
 import 'package:food_planner/data/remote/networkService/NetworkServiceImpl.dart';
 import 'package:food_planner/data/remote/remoteClient/RemoteClientImpl.dart';
@@ -12,6 +14,7 @@ Future<void> init() async
 
   getIt.registerFactory<NetworkService>(() => NetworkServiceImpl());
   getIt.registerFactory<RemoteClient>(() => RemoteClientImpl(networkService: getIt(),crashlytics: getIt()));
+  getIt.registerFactory<Crashlytics>(() => CrashlyticsImpl(crashlytics: getIt()));
 
 
 }
