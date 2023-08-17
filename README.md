@@ -7,7 +7,7 @@ A “Food planner” sample for logging time and place where  user clicked three
 
 
 ## Built With 🛠
-- [Dart](https://dart.dev/) .
+- [Dart](https://dart.dev/) programming language for flutter framwork.
 - [bloc](https://bloclibrary.dev/#/) - For state managment..
 - [get it](https://pub.dev/packages/get_it) - Service locator library for injecting dependencies to clients.
 - [dio](https://pub.dev/packages/dio) - For network calls to api.
