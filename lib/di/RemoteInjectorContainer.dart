@@ -11,7 +11,7 @@ Future<void> init() async
 {
 
   getIt.registerFactory<NetworkService>(() => NetworkServiceImpl());
-  getIt.registerFactory<RemoteClient>(() => RemoteClientImpl(networkService: getIt()));
+  getIt.registerFactory<RemoteClient>(() => RemoteClientImpl(networkService: getIt(),crashlytics: getIt()));
 
 
 }

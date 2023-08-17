@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_planner/presentation/app/bloc/Events.dart';
@@ -7,12 +9,12 @@ import 'package:food_planner/presentation/app/bloc/States.dart';
 import 'package:food_planner/presentation/mainScreen/MainScreen.dart';
 import '../../constants/Strings.dart';
 import '../../constants/Theme.dart';
-
 import '../../di/BlocInjectorContainer.dart' as bloc_di;
 import '../../di/CommonInjectionContainer.dart' as common_di;
 import '../../di/RemoteInjectorContainer.dart' as remote_di;
 import '../../di/RepositoryInjectorContainer.dart' as repository_di;
 import '../../di/UseCaseInjectorContainer.dart' as usecase_di;
+import '../../firebase_options.dart';
 import 'bloc/FoodPlannerBloc.dart';
 
 final theme = MyTheme.light();
@@ -24,7 +26,10 @@ void main() async {
   await repository_di.init();
   await usecase_di.init();
   await bloc_di.init();
-
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FirebaseCrashlytics.instance.log("");
   runApp(const MyApp());
 }
 
@@ -39,11 +44,17 @@ class MyApp extends StatelessWidget {
         create: (context) => bloc_di.getIt<FoodPlannerBloc>(),
         child: BlocBuilder<FoodPlannerBloc, MyFoodPlannerStates>(
             builder: (context, state) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: Strings.appTitle,
-            theme: theme,
-            home: const MyHomePage(),
+          return Listener(
+            behavior: HitTestBehavior.opaque,
+            onPointerDown : (event){
+              onAdd(context, event.localPosition.dx.toString(), event.localPosition.dy.toString());
+            },
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: Strings.appTitle,
+              theme: theme,
+              home: const MyHomePage(),
+            ),
           );
 
         }));
@@ -64,25 +75,25 @@ class _MyHomePageState extends State<MyHomePage> {
     Timer.periodic(const Duration(seconds: 1), (Timer t) => BlocProvider.of<FoodPlannerBloc>(context).add(const ResetMyFoodCounterEvent()));
     return Scaffold(
       appBar: null,
-      body: Listener(
-        behavior: HitTestBehavior.opaque,
-        onPointerDown : (event){
-          onAdd(context, event.localPosition.dx.toString(), event.localPosition.dy.toString());
-          },
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.only(
-                left: size.width * 0.03, right: size.width * 0.03),
-            child: MainScreen(),
-          ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.only(
+              left: size.width * 0.03, right: size.width * 0.03),
+          child: const MainScreen(),
         ),
       ),
-      floatingActionButton: null,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.deepOrange,
+        foregroundColor: Colors.white,
+        mini: true,
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
 
-onAdd(BuildContext context,String dx , String dy)
+void onAdd(BuildContext context,String dx , String dy)
 {
   BlocProvider.of<FoodPlannerBloc>(context).add(AddOnMyFoodCounterEvent(dx,dy));
 }

@@ -63,6 +63,8 @@ android {
     }
 }
 
+apply plugin: 'com.google.firebase.crashlytics'
+
 flutter {
     source '../..'
 }

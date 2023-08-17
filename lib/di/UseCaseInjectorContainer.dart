@@ -1,4 +1,5 @@
 import 'package:food_planner/domain/usecase/GetEgyptianMealsUseCase.dart';
+import 'package:food_planner/domain/usecase/SendLogToCarshlyticsUseCase.dart';
 import 'package:get_it/get_it.dart';
 
 import '../domain/usecase/GetRandomMealUseCase.dart';
@@ -10,4 +11,5 @@ Future<void> init() async
 {
   getIt.registerFactory(() => GetEgyptianMealsUseCase(getIt()));
   getIt.registerFactory(() => GetRandomMealUseCase(getIt()));
+  getIt.registerFactory(() => SendLogToCrashlyticsUseCase(getIt()));
 }

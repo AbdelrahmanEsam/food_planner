@@ -21,4 +21,13 @@ class RepositoryImpl implements Repository {
     var randomMealResponse = await remoteClient.getOneRandomMeal();
     return randomMealResponse?.toMealModel();
   }
+
+  @override
+  void sendLogToCrashLytics({required String dx, required String dy, required String time}) {
+     remoteClient.sendLogToCrashLytics(dx: dx, dy: dy, time: time);
+  }
+
+
+
+
 }

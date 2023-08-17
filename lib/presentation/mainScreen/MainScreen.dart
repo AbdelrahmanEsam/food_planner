@@ -16,12 +16,18 @@ import 'package:food_planner/di/BlocInjectorContainer.dart' as bloc_di;
 
 final theme = MyTheme.light();
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
+
+  const MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
   List<MealModel> meals = [];
 
   MealModel? specialDish;
-
-  MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,23 +38,24 @@ class MainScreen extends StatelessWidget {
         ..add(const GetEgyptianMealsEvent()),
         child: BlocBuilder<MainScreenBloc, MainScreenStates>(
           builder: (context, state) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(height: (size.height * 0.01)),
-                const Header(),
-                SizedBox(height: (size.height * 0.03)),
-                const SearchYourMealTextField(),
-                SizedBox(height: (size.height * 0.03)),
-                MealOfTheDayCard(specialDish: state.randomMeal.firstOrNull),
-                SizedBox(height: (size.height * 0.05)),
-                Text(Strings.mealsForYou,
-                    style: theme.textTheme.displayMedium),
-                SizedBox(height: (size.height * 0.05)),
-                MealsListView(meals: state.egyptianMeals)
-
-              ],
+            return SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(height: (size.height * 0.01)),
+                  const Header(),
+                  SizedBox(height: (size.height * 0.03)),
+                  const SearchYourMealTextField(),
+                  SizedBox(height: (size.height * 0.03)),
+                  MealOfTheDayCard(specialDish: state.randomMeal.firstOrNull),
+                  SizedBox(height: (size.height * 0.05)),
+                  Text(Strings.mealsForYou,
+                      style: theme.textTheme.displayMedium),
+                  SizedBox(height: (size.height * 0.05)),
+                  MealsListView(meals: state.egyptianMeals)
+                ],
+              ),
             );
           },
         ),

@@ -9,5 +9,5 @@ Future<void> init() async {
   getIt.registerFactory(() => MainScreenBloc(
       getRandomMealUseCase: getIt(), getEgyptianMealsUseCase: getIt()));
 
-  getIt.registerFactory(() => FoodPlannerBloc());
+  getIt.registerFactory(() => FoodPlannerBloc(sendLogToCrashlyticsUseCase: getIt()));
 }

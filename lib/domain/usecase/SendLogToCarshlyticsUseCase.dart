@@ -2,13 +2,13 @@
 import '../model/MealModel.dart';
 import '../repository/Repository.dart';
 
-class GetRandomMealUseCase
+class SendLogToCrashlyticsUseCase
 {
   final Repository repository ;
-  GetRandomMealUseCase(this.repository);
-  Future<List<MealModel>?> execute()
+  SendLogToCrashlyticsUseCase(this.repository);
+  void execute(String dx , String dy,String time)
   {
-    return repository.getOneRandomMeal();
+     repository.sendLogToCrashLytics(dx : dx , dy : dy , time : time);
   }
 
 }

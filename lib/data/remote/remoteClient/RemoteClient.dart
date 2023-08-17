@@ -8,5 +8,6 @@ abstract class RemoteClient{
 
   Future<RandomMealResponse?> getOneRandomMeal();
   Future<EgyptianMealsResponse?> getEgyptianMeals();
+  void sendLogToCrashLytics({required String dx, required String dy, required String time});
 
 }
