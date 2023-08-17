@@ -10,9 +10,9 @@ A “Food planner” sample for logging time and place where  user clicked three
 - [Dart](https://dart.dev/) .
 - [bloc](https://bloclibrary.dev/#/) - For state managment..
 - [get it](https://pub.dev/packages/get_it) - Service locator library for injecting dependencies to clients.
-  - [dio](https://pub.dev/packages/dio) - For network calls to api.
-  - [firebase_crashlytics](https://firebase.google.com/products/crashlytics) - To log app crashes and anlytics work.
-  - [Food API](https://www.themealdb.com/) - to get food data from API .
+- [dio](https://pub.dev/packages/dio) - For network calls to api.
+- [firebase_crashlytics](https://firebase.google.com/products/crashlytics) - To log app crashes and anlytics work.
+- [Food API](https://www.themealdb.com/) - to get food data from API .
 
 <br />
 
